@@ -61,17 +61,6 @@ export const signUpFormSchema = z
             "Domínio inválido. Use gmail, outlook, yahoo ou baymetrics, com '.com'",
         }
       ),
-    // .refine(
-    //   (val) => {
-    //     const emailNoExtraDots = val
-    //       .replace(/\.(?=[^@]*@)/g, "")
-    //       .toLocaleLowerCase();
-    //     return !existingEmail.includes(emailNoExtraDots);
-    //   },
-    //   {
-    //     message: "Este email já está cadastrado",
-    //   }
-    // ),
     password: z
       .string()
       .min(12, "A senha deve ter pelo menos 12 caracteres")

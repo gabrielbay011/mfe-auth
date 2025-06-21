@@ -1,5 +1,5 @@
 import sha512 from "crypto-js/sha512";
-import { mockUsers } from "../../utils/mock-users";
+import { mockUsers } from "../../utils/mock-data";
 import normalizeEmail from "../validators/sign-up-validations";
 
 export async function signInWithMock(email: string, password: string) {
