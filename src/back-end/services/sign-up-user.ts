@@ -3,11 +3,13 @@ import normalizeEmail, {
 } from "../../back-end/validators/sign-up-validations";
 import SHA512 from "crypto-js/sha512";
 
+//Função para realizar o cadastr o usuário
 export async function signUpUser(data: any) {
   try {
     const normalizedEmail = normalizeEmail(data.email);
     const hashedPassword = SHA512(data.password).toString();
 
+    //Encapsula as informações do usuário
     const userToSend = {
       name: data.name,
       lastName: data.lastName,

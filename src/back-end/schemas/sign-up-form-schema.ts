@@ -1,7 +1,9 @@
 import { z } from "zod";
 
+//Validações dos campos do cadastro
 export const signUpFormSchema = z
   .object({
+    //Validação nome: minímo de 3 caracteres, apenas letras e acentos
     name: z
       .string()
       .min(3, "O nome deve ter pelo menos 3 caracteres")
@@ -9,6 +11,7 @@ export const signUpFormSchema = z
         /^[A-Za-zÀ-ÿ']+$/,
         "Digite apenas o primeiro nome usando letras e acentos"
       ),
+    //Validação sobrenome: minímo de 3 caracteres, apenas letras e acentos e não pode conter 'de', 'da', etc
     lastName: z
       .string()
       .min(3, "O sobrenome deve ter pelo menos 3 caracteres")
@@ -30,17 +33,19 @@ export const signUpFormSchema = z
             "Cada parte do sobrenome deve ter pelo menos 3 caracteres e não pode conter 'de', 'da', etc",
         }
       ),
+    //Validação lucro: apenas valor númerio, nuémro positivo e saldo até 1000
     profit: z
       .number({ invalid_type_error: "Informe um valor numérico" })
       .positive("O lucro mensal deve ser positivo")
       .max(1000, "O lucro mensal não pode passar de 1000"),
+    //Validação e-mail: campo obrigatório, apenas letras minúsculas, números, '@' e ponto final e domínios específicos
     email: z
       .string()
-      .min(1, "O campo email é obrigatorio")
+      .min(1, "O campo email é obrigatório")
       .toLowerCase()
       .refine((val) => /^[a-z0-9@.]+$/.test(val), {
         message:
-          "Só são permitidos letras minúsculas, números, @ e ponto final",
+          "Só são permitidos letras minúsculas, números, '@' e ponto final",
       })
       .refine((val) => val.includes("@"), {
         message: "O email deve conter '@'",
@@ -61,6 +66,7 @@ export const signUpFormSchema = z
             "Domínio inválido. Use gmail, outlook, yahoo ou baymetrics, com '.com'",
         }
       ),
+    //Validação senha: minímo de 12 caracteres, deve conter número, letra maiúscula, letra minúscula e caracter especial
     password: z
       .string()
       .min(12, "A senha deve ter pelo menos 12 caracteres")
@@ -78,6 +84,7 @@ export const signUpFormSchema = z
             "A senha deve conter pelo menos 3 caracteres especiais diferentes",
         }
       ),
+    //Validação confirmar senha: verifica se as senhas coincidem
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {

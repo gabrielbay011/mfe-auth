@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 export default function SignUp() {
   const navigate = useNavigate();
 
+  //Idem login
   const {
     register,
     handleSubmit,
@@ -17,6 +18,7 @@ export default function SignUp() {
     resolver: zodResolver(signUpFormSchema),
   });
 
+  //Função executada no envio do formulário e retorna sucesso ou erro no cadastro
   async function onSubmit(data: SignUpFormType) {
     try {
       await signUpUser(data);
@@ -31,16 +33,22 @@ export default function SignUp() {
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <h1>Sign Up</h1>
+
+        {/* Campo do nome */}
         <label htmlFor="name">Nome</label>
         <input type="text" {...register("name", { required: true })} />
         {errors.name && <p style={{ color: "red" }}>{errors.name.message}</p>}
         <br />
+
+        {/* Campo do sobrenome */}
         <label htmlFor="lastname">Sobrenome</label>
         <input type="text" {...register("lastName", { required: true })} />
         {errors.lastName && (
           <p style={{ color: "red" }}>{errors.lastName.message}</p>
         )}
         <br />
+
+        {/* Campo do lucro mensal */}
         <label htmlFor="profit">Lucro Mensal</label>
         <input
           type="number"
@@ -50,16 +58,22 @@ export default function SignUp() {
           <p style={{ color: "red" }}>{errors.profit.message}</p>
         )}
         <br />
+
+        {/* Campo do email */}
         <label htmlFor="email">Email</label>
         <input type="email" {...register("email", { required: true })} />
         {errors.email && <p style={{ color: "red" }}>{errors.email.message}</p>}
         <br />
+
+        {/* Campo da senha */}
         <label htmlFor="password">Senha</label>
         <input type="password" {...register("password", { required: true })} />
         {errors.password && (
           <p style={{ color: "red" }}>{errors.password.message}</p>
         )}
         <br />
+
+        {/* Campo de confirmar senha */}
         <label htmlFor="confirmPassword">Confirmar Senha</label>
         <input
           type="password"
@@ -69,8 +83,10 @@ export default function SignUp() {
           <p style={{ color: "red" }}>{errors.confirmPassword.message}</p>
         )}
         <br />
+
         <button type="submit">Cadastrar</button>
       </form>
+
       <Link to="/signin">Já tenho cadatro</Link>
     </div>
   );
