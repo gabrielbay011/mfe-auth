@@ -3,54 +3,66 @@ import { SignInFormType } from "../../back-end/types/sign-in-form-type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signInFormSchema } from "../../back-end/schemas/sign-in-form-schema";
 import { signInWithMock } from "../../back-end/services/sign-in-user";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 //Página de Login
 export default function SignIn() {
-  const navigate = useNavigate();
-
   //Inicialização do formulário de login
   const {
-    register, //Registra os campos do formulário
-    handleSubmit, //Função que lida com o envio do formulário
-    reset, //Função que reseta os campos do formulário
-    formState: { errors }, //Objeto que armazena os erros de validação
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
   } = useForm<SignInFormType>({
-    //Inicialização do formulário com a tipagem dos dados
-    resolver: zodResolver(signInFormSchema), //Utiliza o zod para realizar as validações
+    resolver: zodResolver(signInFormSchema),
   });
 
   //Função executada no envio do formulário e retorna sucesso ou erro no login
-  async function onSubmit(data: SignInFormType) {
+  function handleSignIn(data: SignInFormType) {
     try {
-      const response = await signInWithMock(data.email, data.password);
+      const response = signInWithMock(data.email, data.password);
 
-      // eslint-disable-next-line no-console
-      console.log(response);
+      if (response) {
+        alert("Login realizado com sucesso");
+      }
 
-      alert("Login realizado com sucesso");
-      navigate("/home");
       reset();
-    } catch (err: any) {
-      alert("Erro: " + err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        alert("Erro: " + err.message);
+      } else {
+        alert("Erro desconhecido no login.");
+      }
     }
   }
 
   return (
     <div>
       {/* Formulário de  login utilizando react-hook-form e zod para validação */}
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(handleSignIn)} autoComplete="on">
         <h1>Sign In</h1>
 
         {/* Campo do e-mail */}
-        <label htmlFor="email">Email</label>
-        <input type="email" {...register("email", { required: true })} />
+        <label htmlFor="email">Email:</label>
+        <br />
+        <input
+          type="email"
+          id="email"
+          autoComplete="email"
+          {...register("email", { required: true })}
+        />
         {errors.email && <p style={{ color: "red" }}>{errors.email.message}</p>}
         <br />
 
         {/* Campo de senha */}
-        <label htmlFor="password">Senha</label>
-        <input type="password" {...register("password", { required: true })} />
+        <label htmlFor="password">Senha:</label>
+        <br />
+        <input
+          type="password"
+          id="password"
+          autoComplete="new-password"
+          {...register("password", { required: true })}
+        />
         {errors.password && (
           <p style={{ color: "red" }}>{errors.password.message}</p>
         )}

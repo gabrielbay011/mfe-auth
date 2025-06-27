@@ -21,11 +21,11 @@ export const signUpFormSchema = z
       )
       .refine(
         (val) => {
-          const prohibited = ["de", "da", "do", "dos", "das"];
+          const prohibitedWords = ["de", "da", "do", "dos", "das"];
           const words = val.split(/[\s-]+/).map((w) => w.toLocaleLowerCase());
 
           return words.every(
-            (word) => word.length >= 3 && !prohibited.includes(word)
+            (word) => word.length >= 3 && !prohibitedWords.includes(word)
           );
         },
         {
@@ -75,9 +75,9 @@ export const signUpFormSchema = z
       .regex(/[a-z]/, "A senha deve ter pelo menos uma letra minúscula")
       .refine(
         (val) => {
-          const specials = val.match(/[^a-zA-Z0-9]/g) || [];
-          const distincts = new Set(specials);
-          return distincts.size >= 3;
+          const specialsCharacter = val.match(/[^a-zA-Z0-9]/g) || [];
+          const distinctsCharacter = new Set(specialsCharacter);
+          return distinctsCharacter.size >= 3;
         },
         {
           message:

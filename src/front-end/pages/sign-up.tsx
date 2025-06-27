@@ -19,39 +19,58 @@ export default function SignUp() {
   });
 
   //Função executada no envio do formulário e retorna sucesso ou erro no cadastro
-  async function onSubmit(data: SignUpFormType) {
+  function handleSignUp(data: SignUpFormType) {
     try {
-      await signUpUser(data);
+      signUpUser(data);
       reset();
       navigate("/signin");
-    } catch (err: any) {
-      alert("Erro: " + err.message);
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        alert("Erro: " + err.message);
+      } else {
+        alert("Erro inesperado no cadastro.");
+      }
     }
   }
 
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(handleSignUp)} autoComplete="on">
         <h1>Sign Up</h1>
 
         {/* Campo do nome */}
-        <label htmlFor="name">Nome</label>
-        <input type="text" {...register("name", { required: true })} />
+        <label htmlFor="name">Nome:</label>
+        <br />
+        <input
+          type="text"
+          id="name"
+          autoComplete="given-name"
+          {...register("name", { required: true })}
+        />
         {errors.name && <p style={{ color: "red" }}>{errors.name.message}</p>}
         <br />
 
         {/* Campo do sobrenome */}
-        <label htmlFor="lastname">Sobrenome</label>
-        <input type="text" {...register("lastName", { required: true })} />
+        <label htmlFor="lastname">Sobrenome:</label>
+        <br />
+        <input
+          type="text"
+          id="lastname"
+          autoComplete="family-name"
+          {...register("lastName", { required: true })}
+        />
         {errors.lastName && (
           <p style={{ color: "red" }}>{errors.lastName.message}</p>
         )}
         <br />
 
         {/* Campo do lucro mensal */}
-        <label htmlFor="profit">Lucro Mensal</label>
+        <label htmlFor="profit">Lucro Mensal:</label>
+        <br />
         <input
           type="number"
+          id="profit"
+          autoComplete="off"
           {...register("profit", { valueAsNumber: true, required: true })}
         />
         {errors.profit && (
@@ -60,23 +79,38 @@ export default function SignUp() {
         <br />
 
         {/* Campo do email */}
-        <label htmlFor="email">Email</label>
-        <input type="email" {...register("email", { required: true })} />
+        <label htmlFor="email">Email:</label>
+        <br />
+        <input
+          type="email"
+          id="email"
+          autoComplete="email"
+          {...register("email", { required: true })}
+        />
         {errors.email && <p style={{ color: "red" }}>{errors.email.message}</p>}
         <br />
 
         {/* Campo da senha */}
-        <label htmlFor="password">Senha</label>
-        <input type="password" {...register("password", { required: true })} />
+        <label htmlFor="password">Senha:</label>
+        <br />
+        <input
+          type="password"
+          id="password"
+          autoComplete="new-password"
+          {...register("password", { required: true })}
+        />
         {errors.password && (
           <p style={{ color: "red" }}>{errors.password.message}</p>
         )}
         <br />
 
         {/* Campo de confirmar senha */}
-        <label htmlFor="confirmPassword">Confirmar Senha</label>
+        <label htmlFor="confirmpassword">Confirmar Senha:</label>
+        <br />
         <input
           type="password"
+          id="confirmpassword"
+          autoComplete="new-password"
           {...register("confirmPassword", { required: true })}
         />
         {errors.confirmPassword && (
