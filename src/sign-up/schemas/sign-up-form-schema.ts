@@ -33,7 +33,7 @@ export const signUpFormSchema = z
             "Cada parte do sobrenome deve ter pelo menos 3 caracteres e não pode conter 'de', 'da', etc",
         }
       ),
-    //Validação lucro: apenas valor númerio, nuémro positivo e saldo até 1000
+    //Validação lucro: apenas valor númerico, número positivo e saldo até 1000
     profit: z
       .number({ invalid_type_error: "Informe um valor numérico" })
       .positive("O lucro mensal deve ser positivo")
@@ -66,7 +66,7 @@ export const signUpFormSchema = z
             "Domínio inválido. Use gmail, outlook, yahoo ou baymetrics, com '.com'",
         }
       ),
-    //Validação senha: minímo de 12 caracteres, deve conter número, letra maiúscula, letra minúscula e caracter especial
+    //Validação senha: minímo de 12 caracteres, deve conter número, letra maiúscula, letra minúscula e caractere especial
     password: z
       .string()
       .min(12, "A senha deve ter pelo menos 12 caracteres")

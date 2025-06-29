@@ -1,6 +1,6 @@
 import { mockUsers } from "../../utils/mock-data";
 
-//Função para vertificar se o usuário está autenticado
+//Função para verificar se o usuário está autenticado
 export function userIsAuthenticated(userId: string): boolean {
   const user = mockUsers.find((user) => user.id === userId);
 

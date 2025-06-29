@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
-import { SignInFormType } from "../../back-end/types/sign-in-form-type";
+import { SignInFormType } from "../types/sign-in-form-type";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signInFormSchema } from "../../back-end/schemas/sign-in-form-schema";
-import { signInWithMock } from "../../back-end/services/sign-in-user";
+import { signInFormSchema } from "../schemas/sign-in-form-schema";
+import { signInWithMock } from "../services/sign-in-user";
 import { Link } from "react-router-dom";
 
 //Página de Login

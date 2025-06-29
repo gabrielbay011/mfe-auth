@@ -1,4 +1,4 @@
-//Tipo refereten ao retorno da função signUpUser
+//Tipo referente ao retorno da função signUpUser
 export type UserToSend = {
   name: string;
   lastName: string;

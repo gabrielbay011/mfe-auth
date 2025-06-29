@@ -1,14 +1,14 @@
 import { useForm } from "react-hook-form";
-import { SignUpFormType } from "../../back-end/types/sign-up-form-type";
-import { signUpFormSchema } from "../../back-end/schemas/sign-up-form-schema";
+import { SignUpFormType } from "../types/sign-up-form-type";
+import { signUpFormSchema } from "../schemas/sign-up-form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signUpUser } from "../../back-end/services/sign-up-user";
+import { signUpUser } from "../services/sign-up-user";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function SignUp() {
   const navigate = useNavigate();
 
-  //Idem login
+  //Inicialização do formulário de cadastro
   const {
     register,
     handleSubmit,

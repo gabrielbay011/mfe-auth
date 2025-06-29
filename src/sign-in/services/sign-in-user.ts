@@ -1,6 +1,6 @@
 import sha512 from "crypto-js/sha512";
 import { mockUsers } from "../../utils/mock-data";
-import normalizeEmail from "../validators/sign-up-validations";
+import normalizeEmail from "../../utils/validators/normalize-email";
 import { SignInResult } from "../types/sign-in-result-type";
 
 //Função para realizar o login com os dados mockados
