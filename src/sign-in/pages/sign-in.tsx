@@ -3,7 +3,9 @@ import { SignInFormType } from "../types/sign-in-form-type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signInFormSchema } from "../schemas/sign-in-form-schema";
 import { signInWithMock } from "../services/sign-in-user";
-import { Link } from "react-router-dom";
+import Button from "../../utils/components/button";
+import Input from "../../utils/components/input";
+import iconAdd from "../../public/images/icon-add.svg";
 
 //Página de Login
 export default function SignIn() {
@@ -37,41 +39,35 @@ export default function SignIn() {
   }
 
   return (
-    <div>
+    <>
       {/* Formulário de  login utilizando react-hook-form e zod para validação */}
-      <form onSubmit={handleSubmit(handleSignIn)} autoComplete="on">
-        <h1>Sign In</h1>
-
+      <form onSubmit={handleSubmit(handleSignIn)} autoComplete="on" className="w-full max-w-sm">
         {/* Campo do e-mail */}
-        <label htmlFor="email">Email:</label>
-        <br />
-        <input
+        <Input
+          label="E-mail:"
           type="email"
           id="email"
           autoComplete="email"
-          {...register("email", { required: true })}
+          register={register("email", { required: true })}
         />
         {errors.email && <p style={{ color: "red" }}>{errors.email.message}</p>}
-        <br />
 
         {/* Campo de senha */}
-        <label htmlFor="password">Senha:</label>
-        <br />
-        <input
+        <Input
+          label="Senha:"
           type="password"
           id="password"
           autoComplete="new-password"
-          {...register("password", { required: true })}
+          register={register("password", { required: true })}
         />
         {errors.password && (
           <p style={{ color: "red" }}>{errors.password.message}</p>
         )}
-        <br />
 
-        <button type="submit">Logar</button>
+        <div className="mt-5 mb-5">
+          <Button type="submit">Login</Button>
+        </div>
       </form>
-
-      <Link to="/signup">Não tenho cadastro</Link>
-    </div>
+    </>
   );
 }

@@ -3,7 +3,9 @@ import { SignUpFormType } from "../types/sign-up-form-type";
 import { signUpFormSchema } from "../schemas/sign-up-form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpUser } from "../services/sign-up-user";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Button from "../../utils/components/button";
+import Input from "../../utils/components/input";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -34,94 +36,80 @@ export default function SignUp() {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(handleSignUp)} autoComplete="on">
-        <h1>Sign Up</h1>
-
+    <>
+      <form onSubmit={handleSubmit(handleSignUp)} autoComplete="on" className="w-full max-w-sm">
         {/* Campo do nome */}
-        <label htmlFor="name">Nome:</label>
-        <br />
-        <input
+        <Input
+          label="Nome:"
           type="text"
           id="name"
           autoComplete="given-name"
-          {...register("name", { required: true })}
+          register={register("name", { required: true })}
         />
         {errors.name && <p style={{ color: "red" }}>{errors.name.message}</p>}
-        <br />
 
         {/* Campo do sobrenome */}
-        <label htmlFor="lastname">Sobrenome:</label>
-        <br />
-        <input
+        <Input
+          label="Sobrenome:"
           type="text"
           id="lastname"
           autoComplete="family-name"
-          {...register("lastName", { required: true })}
+          register={register("lastName", { required: true })}
         />
         {errors.lastName && (
           <p style={{ color: "red" }}>{errors.lastName.message}</p>
         )}
-        <br />
 
         {/* Campo do lucro mensal */}
-        <label htmlFor="profit">Lucro Mensal:</label>
-        <br />
-        <input
+        <Input
+          label="Lucro mensal:"
           type="number"
           id="profit"
           autoComplete="off"
-          {...register("profit", { valueAsNumber: true, required: true })}
+          register={register("profit", { valueAsNumber: true, required: true })}
         />
         {errors.profit && (
           <p style={{ color: "red" }}>{errors.profit.message}</p>
         )}
-        <br />
 
         {/* Campo do email */}
-        <label htmlFor="email">Email:</label>
-        <br />
-        <input
+        <Input
+          label="E-mail:"
           type="email"
           id="email"
           autoComplete="email"
-          {...register("email", { required: true })}
+          register={register("email", { required: true })}
         />
         {errors.email && <p style={{ color: "red" }}>{errors.email.message}</p>}
-        <br />
 
         {/* Campo da senha */}
-        <label htmlFor="password">Senha:</label>
-        <br />
-        <input
+        <Input
+          label="Senha:"
           type="password"
           id="password"
           autoComplete="new-password"
-          {...register("password", { required: true })}
+          register={register("password", { required: true })}
         />
         {errors.password && (
           <p style={{ color: "red" }}>{errors.password.message}</p>
         )}
-        <br />
 
         {/* Campo de confirmar senha */}
-        <label htmlFor="confirmpassword">Confirmar Senha:</label>
-        <br />
-        <input
+        <Input
+          label="Confirmar senha:"
           type="password"
-          id="confirmpassword"
+          id="confirmPassword"
           autoComplete="new-password"
-          {...register("confirmPassword", { required: true })}
+          register={register("confirmPassword", { required: true })}
         />
         {errors.confirmPassword && (
           <p style={{ color: "red" }}>{errors.confirmPassword.message}</p>
         )}
-        <br />
 
-        <button type="submit">Cadastrar</button>
+        <div className="mt-5 mb-5">
+          <Button type="submit">Cadastrar</Button>
+        </div>
       </form>
-
-      <Link to="/signin">Já tenho cadatro</Link>
-    </div>
+    </>
   );
 }
