@@ -37,7 +37,11 @@ export default function SignUp() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(handleSignUp)} autoComplete="on" className="w-full max-w-sm">
+      <form
+        onSubmit={handleSubmit(handleSignUp)}
+        autoComplete="on"
+        className="w-full max-w-sm"
+      >
         {/* Campo do nome */}
         <Input
           label="Nome:"

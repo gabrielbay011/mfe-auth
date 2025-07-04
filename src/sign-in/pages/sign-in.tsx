@@ -41,7 +41,11 @@ export default function SignIn() {
   return (
     <>
       {/* Formulário de  login utilizando react-hook-form e zod para validação */}
-      <form onSubmit={handleSubmit(handleSignIn)} autoComplete="on" className="w-full max-w-sm">
+      <form
+        onSubmit={handleSubmit(handleSignIn)}
+        autoComplete="on"
+        className="w-full max-w-sm"
+      >
         {/* Campo do e-mail */}
         <Input
           label="E-mail:"
