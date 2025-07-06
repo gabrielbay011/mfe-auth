@@ -9,47 +9,62 @@ export default function Home() {
   const [signInFormVisible, setSignInFormVisible] = useState(false);
 
   return (
-    <div className="flex flex-col items-center justify-center px-4">
-      <div className="m-5">
+    <div className="min-h-screen flex flex-col">
+      {/* Logo */}
+      <div className="px-6 py-4">
         <img src={logo} alt="Logo SysFlow" />
       </div>
-      <div className="flex flex-col items-center w-full max-w-md">
-        <div className="flex bg-purpleLight rounded-t-lg w-full">
-          <div className="flex w-full">
-            <button
-              className={`w-1/2 hover:cursor-pointer ${
-                signUpFormVisible == true
-                  ? "bg-purpleLight rounded-tl-lg font-bold p-3"
-                  : "bg-purplePrimary rounded-br-sm rounded-tl-lg font-bold p-3"
-              }`}
-              onClick={() => {
-                setSignUpFormVisible(true);
-                setSignInFormVisible(false);
-              }}
-            >
-              Cadastro
-            </button>
-            <button
-              className={`w-1/2 hover:cursor-pointer ${
-                signInFormVisible == true
-                  ? "bg-purpleLight rounded-tr-lg font-bold p-3"
-                  : "bg-purplePrimary rounded-bl-sm rounded-tr-lg font-bold p-3"
-              }`}
-              onClick={() => {
-                setSignInFormVisible(true);
-                setSignUpFormVisible(false);
-              }}
-            >
-              Login
-            </button>
+
+      {/* Formulário e Imagem lado a lado */}
+      <div className="flex flex-col lg:flex-row flex-grow">
+        {/* 📋 Formulário - metade esquerda */}
+        <div className="w-full lg:w-1/2 flex justify-center items-center px-6">
+          <div className="flex flex-col items-center w-full max-w-md">
+            {/* Botões de tabs */}
+            <div className="flex bg-purpleLight rounded-t-lg w-full">
+              <button
+                className={`w-1/2 hover:cursor-pointer ${
+                  signUpFormVisible
+                    ? "bg-purpleLight rounded-tl-lg font-bold p-3"
+                    : "bg-purplePrimary rounded-br-sm rounded-tl-lg font-bold p-3"
+                }`}
+                onClick={() => {
+                  setSignUpFormVisible(true);
+                  setSignInFormVisible(false);
+                }}
+              >
+                Cadastro
+              </button>
+              <button
+                className={`w-1/2 hover:cursor-pointer ${
+                  signInFormVisible
+                    ? "bg-purpleLight rounded-tr-lg font-bold p-3"
+                    : "bg-purplePrimary rounded-bl-sm rounded-tr-lg font-bold p-3"
+                }`}
+                onClick={() => {
+                  setSignInFormVisible(true);
+                  setSignUpFormVisible(false);
+                }}
+              >
+                Login
+              </button>
+            </div>
+
+            {/* Conteúdo do formulário */}
+            <div className="w-full flex justify-center bg-purpleLight rounded-b-lg mb-5">
+              {signUpFormVisible ? <SignUp /> : <SignIn />}
+            </div>
           </div>
         </div>
-        <div className="w-full flex justify-center bg-purpleLight rounded-b-lg mb-5">
-          {signUpFormVisible == true ? <SignUp /> : <SignIn />}
+
+        {/* Imagem login */}
+        <div className="hidden lg:flex w-full lg:w-1/2 justify-center items-center p-6">
+          <img
+            src={imageLogin}
+            alt="Ilustração Login"
+            className="max-h-[90%] object-contain"
+          />
         </div>
-      </div>
-      <div className="hidden lg:block">
-        <img src={imageLogin} alt="Imagem Login" />
       </div>
     </div>
   );

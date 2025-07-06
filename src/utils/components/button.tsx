@@ -24,7 +24,7 @@ export default function Button({ children, type }) {
   return (
     <button
       type={type}
-      className={`${baseStyle} w-full justify-center px-4 py-3 ${style[type]}`}
+      className={`${baseStyle} w-full justify-center px-4 py-[10px] ${style[type]}`}
     >
       {children}
     </button>

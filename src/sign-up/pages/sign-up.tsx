@@ -110,7 +110,7 @@ export default function SignUp() {
           <p style={{ color: "red" }}>{errors.confirmPassword.message}</p>
         )}
 
-        <div className="mt-5 mb-5">
+        <div className="mb-5 pr-6 pl-6 md:pr-1 md:pl-1">
           <Button type="submit">Cadastrar</Button>
         </div>
       </form>

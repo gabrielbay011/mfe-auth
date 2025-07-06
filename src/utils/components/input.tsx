@@ -8,7 +8,7 @@ export default function Input({
   register,
 }: InputProps) {
   return (
-    <div className="mt-3 m-5">
+    <div className="m-5 mr-6 ml-6 md:mt-5 md:ml-1 md:mr-1">
       <label htmlFor={id}>{label}</label>
       <br />
       <input
