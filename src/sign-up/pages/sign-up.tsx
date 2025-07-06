@@ -6,6 +6,8 @@ import { signUpUser } from "../services/sign-up-user";
 import { useNavigate } from "react-router-dom";
 import Button from "../../utils/components/button";
 import Input from "../../utils/components/input";
+import PasswordChecklist from "../validators/password-check-list";
+import sucess from "../../public/images/icon-success.svg";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -15,10 +17,14 @@ export default function SignUp() {
     register,
     handleSubmit,
     reset,
+    watch,
     formState: { errors },
   } = useForm<SignUpFormType>({
     resolver: zodResolver(signUpFormSchema),
   });
+
+  const password = watch("password") || "";
+  const confirmPassword = watch("confirmPassword") || "";
 
   //Função executada no envio do formulário e retorna sucesso ou erro no cadastro
   function handleSignUp(data: SignUpFormType) {
@@ -49,8 +55,8 @@ export default function SignUp() {
           id="name"
           autoComplete="given-name"
           register={register("name", { required: true })}
+          error={errors.name?.message}
         />
-        {errors.name && <p style={{ color: "red" }}>{errors.name.message}</p>}
 
         {/* Campo do sobrenome */}
         <Input
@@ -59,10 +65,8 @@ export default function SignUp() {
           id="lastname"
           autoComplete="family-name"
           register={register("lastName", { required: true })}
+          error={errors.lastName?.message}
         />
-        {errors.lastName && (
-          <p style={{ color: "red" }}>{errors.lastName.message}</p>
-        )}
 
         {/* Campo do lucro mensal */}
         <Input
@@ -71,10 +75,8 @@ export default function SignUp() {
           id="profit"
           autoComplete="off"
           register={register("profit", { valueAsNumber: true, required: true })}
+          error={errors.profit?.message}
         />
-        {errors.profit && (
-          <p style={{ color: "red" }}>{errors.profit.message}</p>
-        )}
 
         {/* Campo do email */}
         <Input
@@ -83,36 +85,44 @@ export default function SignUp() {
           id="email"
           autoComplete="email"
           register={register("email", { required: true })}
+          error={errors.email?.message}
         />
-        {errors.email && <p style={{ color: "red" }}>{errors.email.message}</p>}
 
-        {/* Campo da senha */}
-        <Input
-          label="Senha:"
-          type="password"
-          id="password"
-          autoComplete="new-password"
-          register={register("password", { required: true })}
+        <div className="flex flex-col md:flex-row">
+          {/* Campo da senha */}
+          <Input
+            label="Senha:"
+            type="password"
+            id="password"
+            autoComplete="new-password"
+            register={register("password", { required: true })}
+            error={errors.password?.message}
+          />
+
+          {/* Campo de confirmar senha */}
+          <Input
+            label="Confirmar senha:"
+            type="password"
+            id="confirmPassword"
+            autoComplete="new-password"
+            register={register("confirmPassword", { required: true })}
+            error={errors.confirmPassword?.message}
+          />
+        </div>
+
+        <PasswordChecklist
+          password={password}
+          confirmPassword={confirmPassword}
         />
-        {errors.password && (
-          <p style={{ color: "red" }}>{errors.password.message}</p>
-        )}
 
-        {/* Campo de confirmar senha */}
-        <Input
-          label="Confirmar senha:"
-          type="password"
-          id="confirmPassword"
-          autoComplete="new-password"
-          register={register("confirmPassword", { required: true })}
-        />
-        {errors.confirmPassword && (
-          <p style={{ color: "red" }}>{errors.confirmPassword.message}</p>
-        )}
-
-        <div className="mb-5 pr-6 pl-6 md:pr-1 md:pl-1">
+        <div className="mt-5 mb-5 pr-6 pl-6 md:pr-1 md:pl-1">
           <Button type="submit">Cadastrar</Button>
         </div>
+
+        {/* <div className="flex justify-center gap-2 p-10 rounded-[20px] bg-white border-[1px] border-grayLight shadow-md">
+          <img src={sucess} alt="Icone Sucesso" />
+          <p>Cadastro realizado com sucesso</p>
+        </div> */}
       </form>
     </>
   );

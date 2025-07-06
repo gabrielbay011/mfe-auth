@@ -53,8 +53,9 @@ export default function SignIn() {
           id="email"
           autoComplete="email"
           register={register("email", { required: true })}
+          error={errors.email?.message}
         />
-        {errors.email && <p style={{ color: "red" }}>{errors.email.message}</p>}
+        
 
         {/* Campo de senha */}
         <Input
@@ -63,12 +64,10 @@ export default function SignIn() {
           id="password"
           autoComplete="new-password"
           register={register("password", { required: true })}
+          error={errors.password?.message}
         />
-        {errors.password && (
-          <p style={{ color: "red" }}>{errors.password.message}</p>
-        )}
 
-        <div className="mb-5 pr-6 pl-6 md:pr-1 md:pl-1">
+        <div className="mt-5 mb-5 pr-6 pl-6 md:pr-1 md:pl-1">
           <Button type="submit">Login</Button>
         </div>
       </form>

@@ -11,22 +11,20 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Logo */}
-      <div className="px-6 py-4">
+      <div className="flex justify-center lg:justify-start px-6 py-4">
         <img src={logo} alt="Logo SysFlow" />
       </div>
 
-      {/* Formulário e Imagem lado a lado */}
+      {/* Formulário e Imagem */}
       <div className="flex flex-col lg:flex-row flex-grow">
-        {/* 📋 Formulário - metade esquerda */}
         <div className="w-full lg:w-1/2 flex justify-center items-center px-6">
           <div className="flex flex-col items-center w-full max-w-md">
-            {/* Botões de tabs */}
-            <div className="flex bg-purpleLight rounded-t-lg w-full">
+            <div className="flex bg-purpleLight rounded-t-[20px] w-full">
               <button
-                className={`w-1/2 hover:cursor-pointer ${
+                className={`w-1/2 hover:cursor-pointer font-bold p-2 rounded-tl-[20px] text-2xl text-grayDark ${
                   signUpFormVisible
-                    ? "bg-purpleLight rounded-tl-lg font-bold p-3"
-                    : "bg-purplePrimary rounded-br-sm rounded-tl-lg font-bold p-3"
+                    ? "bg-purpleLight"
+                    : "bg-purplePrimary rounded-br-sm"
                 }`}
                 onClick={() => {
                   setSignUpFormVisible(true);
@@ -36,10 +34,10 @@ export default function Home() {
                 Cadastro
               </button>
               <button
-                className={`w-1/2 hover:cursor-pointer ${
+                className={`w-1/2 hover:cursor-pointer font-bold p-2 rounded-tr-[20px] text-2xl text-grayDark ${
                   signInFormVisible
-                    ? "bg-purpleLight rounded-tr-lg font-bold p-3"
-                    : "bg-purplePrimary rounded-bl-sm rounded-tr-lg font-bold p-3"
+                    ? "bg-purpleLight"
+                    : "bg-purplePrimary rounded-bl-sm"
                 }`}
                 onClick={() => {
                   setSignInFormVisible(true);
@@ -50,18 +48,16 @@ export default function Home() {
               </button>
             </div>
 
-            {/* Conteúdo do formulário */}
-            <div className="w-full flex justify-center bg-purpleLight rounded-b-lg mb-5">
+            <div className="w-full flex justify-center bg-purpleLight rounded-b-[20px] mb-5">
               {signUpFormVisible ? <SignUp /> : <SignIn />}
             </div>
           </div>
         </div>
 
-        {/* Imagem login */}
         <div className="hidden lg:flex w-full lg:w-1/2 justify-center items-center p-6">
           <img
             src={imageLogin}
-            alt="Ilustração Login"
+            alt="Imagem Login"
             className="max-h-[90%] object-contain"
           />
         </div>

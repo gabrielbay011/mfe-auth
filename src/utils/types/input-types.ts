@@ -6,4 +6,5 @@ export type InputProps = {
   id: string;
   autoComplete?: string;
   register: UseFormRegisterReturn;
+  error?: string;
 };

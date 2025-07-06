@@ -1,5 +1,5 @@
 export default function Button({ children, type }) {
-  const baseStyle = "font-extrabold hover:cursor-pointer rounded-md flex";
+  const baseStyle = "font-extrabold hover:cursor-pointer rounded-[10px] flex";
 
   const style = {
     submit:
