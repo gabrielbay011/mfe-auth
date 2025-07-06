@@ -33,7 +33,11 @@ export default function Input({
             onClick={() => setShowPassword(!showPassword)}
             className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer"
           >
-            {showPassword ? <img src={eyeClose} alt="Icone Olho Fechado" /> : <img src={eyeOpen} alt="Icone Olho Aberto" /> }
+            {showPassword ? (
+              <img src={eyeClose} alt="Icone Olho Fechado" />
+            ) : (
+              <img src={eyeOpen} alt="Icone Olho Aberto" />
+            )}
           </button>
         )}
       </div>

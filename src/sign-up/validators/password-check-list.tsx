@@ -81,7 +81,7 @@ export default function PasswordChecklist({
           />
           Um número
         </li>
-        <li className="flex items-center gap-2">
+        <li className="flex items-center">
           <img src={passwordsMatch ? check : uncheck} alt="" />
           Confirmar senha igual
         </li>

@@ -55,7 +55,6 @@ export default function SignIn() {
           register={register("email", { required: true })}
           error={errors.email?.message}
         />
-        
 
         {/* Campo de senha */}
         <Input
