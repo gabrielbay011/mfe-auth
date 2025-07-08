@@ -1,7 +1,7 @@
 import { UseFormRegisterReturn } from "react-hook-form";
 
 export type InputProps = {
-  label: string;
+  label?: string;
   type: string;
   id: string;
   autoComplete?: string;

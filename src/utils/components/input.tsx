@@ -8,8 +8,8 @@ export default function Input({
   id,
   autoComplete,
   label,
-  register,
   error,
+  register,
 }: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
   const isPassword = type === "password";
@@ -42,7 +42,7 @@ export default function Input({
         )}
       </div>
 
-      {error && <p className="text-red-600">{error}</p>}
+      {type && type != "password" && <p className="text-red-600">{error}</p>}
     </div>
   );
 }

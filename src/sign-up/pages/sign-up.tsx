@@ -115,8 +115,22 @@ export default function SignUp() {
           confirmPassword={confirmPassword}
         />
 
-        <div className="mt-5 mb-5 pr-6 pl-6 md:pr-1 md:pl-1">
-          <Button type="submit">Cadastrar</Button>
+        {/* Campo de confirmar senha */}
+        <Input
+          label="Confirmar senha:"
+          type="password"
+          id="confirmPassword"
+          autoComplete="new-password"
+          register={register("confirmPassword", { required: true })}
+        />
+        {errors.confirmPassword && (
+          <p style={{ color: "red" }}>{errors.confirmPassword.message}</p>
+        )}
+
+        <div className="mt-5 mb-5 pr-5 pl-5 md:pr-5 md:pl-5">
+          <Button type="submit" styleType="submit">
+            Cadastrar
+          </Button>
         </div>
 
         {/* <div className="flex justify-center gap-2 p-10 rounded-[20px] bg-white border-[1px] border-grayLight shadow-md">

@@ -5,7 +5,6 @@ import { signInFormSchema } from "../schemas/sign-in-form-schema";
 import { signInWithMock } from "../services/sign-in-user";
 import Button from "../../utils/components/button";
 import Input from "../../utils/components/input";
-import iconAdd from "../../public/images/icon-add.svg";
 
 //Página de Login
 export default function SignIn() {
@@ -66,8 +65,10 @@ export default function SignIn() {
           error={errors.password?.message}
         />
 
-        <div className="mt-5 mb-5 pr-6 pl-6 md:pr-1 md:pl-1">
-          <Button type="submit">Login</Button>
+        <div className="mt-5 mb-5 pr-5 pl-5 md:pr-5 md:pl-5">
+          <Button type="submit" styleType="submit">
+            Login
+          </Button>
         </div>
       </form>
     </>

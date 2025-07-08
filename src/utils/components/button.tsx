@@ -1,4 +1,4 @@
-export default function Button({ children, type }) {
+export default function Button({ children, type, styleType }) {
   const baseStyle = "font-extrabold hover:cursor-pointer rounded-[10px] flex";
 
   const style = {
@@ -11,7 +11,7 @@ export default function Button({ children, type }) {
     },
   };
 
-  if (type === "button") {
+  if (styleType === "button") {
     return (
       <button
         className={`${baseStyle} w-full justify-center  ${style.button.parent}`}
@@ -24,7 +24,7 @@ export default function Button({ children, type }) {
   return (
     <button
       type={type}
-      className={`${baseStyle} w-full justify-center px-4 py-[10px] ${style[type]}`}
+      className={`${baseStyle} w-full justify-center px-4 py-[10px] ${style[styleType]}`}
     >
       {children}
     </button>
