@@ -65,7 +65,7 @@ export default function SignIn() {
           error={errors.password?.message}
         />
 
-        <div className="mt-5 mb-5 pr-5 pl-5 md:pr-5 md:pl-5">
+        <div className="mt-5 mb-5">
           <Button type="submit" styleType="submit">
             Login
           </Button>

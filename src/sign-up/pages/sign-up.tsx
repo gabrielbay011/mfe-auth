@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../utils/components/button";
 import Input from "../../utils/components/input";
 import PasswordChecklist from "../validators/password-check-list";
-import sucess from "../../public/images/icon-success.svg";
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -88,7 +87,7 @@ export default function SignUp() {
           error={errors.email?.message}
         />
 
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col md:flex-row gap-5">
           {/* Campo da senha */}
           <Input
             label="Senha:"
@@ -96,7 +95,6 @@ export default function SignUp() {
             id="password"
             autoComplete="new-password"
             register={register("password", { required: true })}
-            error={errors.password?.message}
           />
 
           {/* Campo de confirmar senha */}
@@ -106,7 +104,6 @@ export default function SignUp() {
             id="confirmPassword"
             autoComplete="new-password"
             register={register("confirmPassword", { required: true })}
-            error={errors.confirmPassword?.message}
           />
         </div>
 
@@ -115,16 +112,11 @@ export default function SignUp() {
           confirmPassword={confirmPassword}
         />
 
-        <div className="mt-5 mb-5 pr-5 pl-5 md:pr-5 md:pl-5">
+        <div className="mt-5 mb-5">
           <Button type="submit" styleType="submit">
             Cadastrar
           </Button>
         </div>
-
-        {/* <div className="flex justify-center gap-2 p-10 rounded-[20px] bg-white border-[1px] border-grayLight shadow-md">
-          <img src={sucess} alt="Icone Sucesso" />
-          <p>Cadastro realizado com sucesso</p>
-        </div> */}
       </form>
     </>
   );

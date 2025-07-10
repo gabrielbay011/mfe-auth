@@ -16,12 +16,12 @@ export default function Input({
   const inputType = isPassword ? (showPassword ? "text" : "password") : type;
 
   return (
-    <div className="mt-5 mr-6 ml-6 md:ml-1 md:mr-1">
+    <div className="mt-5">
       <label htmlFor={id}>{label}</label>
       <br />
       <div className="relative">
         <input
-          className="rounded-[10px] bg-white p-1 w-full"
+          className="rounded-[10px] bg-white p-1 pl-2 w-full focus:outline-purpleMedium"
           type={inputType}
           id={id}
           autoComplete={autoComplete}
@@ -42,7 +42,7 @@ export default function Input({
         )}
       </div>
 
-      {type && type != "password" && <p className="text-red-600">{error}</p>}
+      {type && <p className="text-red-600">{error}</p>}
     </div>
   );
 }
