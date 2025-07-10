@@ -22,7 +22,5 @@ export function signUpUser(data: SignUpFormType): UserToSend {
     password: hashedPassword,
   };
 
-  alert("Cadastro realizado com sucesso");
-
   return userToSend;
 }

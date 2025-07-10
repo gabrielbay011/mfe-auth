@@ -15,14 +15,10 @@ export function signInWithMock(email: string, password: string): SignInResult {
     (u) => u.email.toLowerCase() === normalizedEmail.toLowerCase()
   );
 
-  if (!userData) {
-    throw new Error("Email inválido");
-  }
-
   const hashedPassword = sha512(password).toString();
 
-  if (userData.passwordHash !== hashedPassword) {
-    throw new Error("Senha incorreta");
+  if (!userData || userData.passwordHash !== hashedPassword) {
+    throw new Error("Email ou senha estão incorretos");
   }
 
   return {

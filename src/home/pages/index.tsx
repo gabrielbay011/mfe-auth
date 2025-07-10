@@ -49,7 +49,16 @@ export default function Home() {
             </div>
 
             <div className="w-full flex justify-center bg-purpleLight rounded-b-[20px] mb-5">
-              {signUpFormVisible ? <SignUp /> : <SignIn />}
+              {signUpFormVisible ? (
+                <SignUp
+                  onSuccess={() => {
+                    setSignUpFormVisible(false);
+                    setSignInFormVisible(true);
+                  }}
+                />
+              ) : (
+                <SignIn />
+              )}
             </div>
           </div>
         </div>

@@ -3,14 +3,16 @@ import { SignUpFormType } from "../types/sign-up-form-type";
 import { signUpFormSchema } from "../schemas/sign-up-form-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpUser } from "../services/sign-up-user";
-import { useNavigate } from "react-router-dom";
 import Button from "../../utils/components/button";
 import Input from "../../utils/components/input";
 import PasswordChecklist from "../validators/password-check-list";
+import Modal from "../../utils/components/modal";
+import { useState } from "react";
+import iconUncheck from "../../public/images/icon-uncheck.svg";
+import iconSuccess from "../../public/images/icon-success.svg";
+import { SignUpProps } from "../types/sign-up-props";
 
-export default function SignUp() {
-  const navigate = useNavigate();
-
+export default function SignUp({ onSuccess }: SignUpProps) {
   //Inicialização do formulário de cadastro
   const {
     register,
@@ -25,17 +27,39 @@ export default function SignUp() {
   const password = watch("password") || "";
   const confirmPassword = watch("confirmPassword") || "";
 
+  //State reallcionado a modal de feedback
+  const [feedbackMessage, setFeedbackMessage] = useState("");
+  const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
+  const [feedbackType, setFeedbackType] = useState<"success" | "error">(
+    "success"
+  );
+
   //Função executada no envio do formulário e retorna sucesso ou erro no cadastro
   function handleSignUp(data: SignUpFormType) {
     try {
       signUpUser(data);
+      setFeedbackType("success");
+      setFeedbackMessage("Usuário cadastrado com sucesso!");
+      setFeedbackModalOpen(true);
       reset();
-      navigate("/signin");
+      setTimeout(() => {
+        setFeedbackModalOpen(false);
+        onSuccess();
+      }, 1000);
     } catch (err: unknown) {
+      setFeedbackType("error");
       if (err instanceof Error) {
-        alert("Erro: " + err.message);
+        setFeedbackMessage(err.message);
+        setFeedbackModalOpen(true);
+        setTimeout(() => {
+          setFeedbackModalOpen(false);
+        }, 1000);
       } else {
-        alert("Erro inesperado no cadastro.");
+        setFeedbackMessage("Erro ao cadastrar usuário");
+        setFeedbackModalOpen(true);
+        setTimeout(() => {
+          setFeedbackModalOpen(false);
+        }, 1000);
       }
     }
   }
@@ -45,7 +69,7 @@ export default function SignUp() {
       <form
         onSubmit={handleSubmit(handleSignUp)}
         autoComplete="on"
-        className="w-full max-w-sm"
+        className="w-full max-w-sm relative"
       >
         {/* Campo do nome */}
         <Input
@@ -87,7 +111,7 @@ export default function SignUp() {
           error={errors.email?.message}
         />
 
-        <div className="flex flex-col md:flex-row gap-5">
+        <div className="flex flex-col md:flex-row gap-5 m-5 md:ml-5 md:mr-5">
           {/* Campo da senha */}
           <Input
             label="Senha:"
@@ -107,16 +131,35 @@ export default function SignUp() {
           />
         </div>
 
-        <PasswordChecklist
-          password={password}
-          confirmPassword={confirmPassword}
-        />
+        <div className="md:m-5">
+          <PasswordChecklist
+            password={password}
+            confirmPassword={confirmPassword}
+          />
+        </div>
 
-        <div className="mt-5 mb-5">
+        <div className="m-5">
           <Button type="submit" styleType="submit">
             Cadastrar
           </Button>
         </div>
+
+        {/* Modal de feedback */}
+        <Modal isOpen={feedbackModalOpen}>
+          <div className="flex flex-col items-center justify-center text-center w-full h-full p-5 pt-10 pb-10">
+            <div className="flex items-center justify-center gap-2">
+              <img
+                src={feedbackType === "success" ? iconSuccess : iconUncheck}
+                alt={
+                  feedbackType === "success"
+                    ? "Ícone de Sucesso"
+                    : "Ícone de Erro"
+                }
+              />
+              <p className="text-base font-medium">{feedbackMessage}</p>
+            </div>
+          </div>
+        </Modal>
       </form>
     </>
   );

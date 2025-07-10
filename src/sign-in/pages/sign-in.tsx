@@ -5,6 +5,10 @@ import { signInFormSchema } from "../schemas/sign-in-form-schema";
 import { signInWithMock } from "../services/sign-in-user";
 import Button from "../../utils/components/button";
 import Input from "../../utils/components/input";
+import { useState } from "react";
+import iconUncheck from "../../public/images/icon-uncheck.svg";
+import iconSuccess from "../../public/images/icon-success.svg";
+import Modal from "../../utils/components/modal";
 
 //Página de Login
 export default function SignIn() {
@@ -18,21 +22,43 @@ export default function SignIn() {
     resolver: zodResolver(signInFormSchema),
   });
 
+  //State reallcionado a modal de feedback
+  const [feedbackMessage, setFeedbackMessage] = useState("");
+  const [feedbackModalOpen, setFeedbackModalOpen] = useState(false);
+  const [feedbackType, setFeedbackType] = useState<"success" | "error">(
+    "success"
+  );
+
   //Função executada no envio do formulário e retorna sucesso ou erro no login
   function handleSignIn(data: SignInFormType) {
     try {
       const response = signInWithMock(data.email, data.password);
 
       if (response) {
-        alert("Login realizado com sucesso");
+        setFeedbackType("success");
+        setFeedbackMessage("Usuário cadastrado com sucesso!");
+        setFeedbackModalOpen(true);
       }
 
       reset();
+      setTimeout(() => {
+        setFeedbackModalOpen(false);
+      }, 1000);
     } catch (err: unknown) {
       if (err instanceof Error) {
-        alert("Erro: " + err.message);
+        setFeedbackType("error");
+        setFeedbackMessage(err.message);
+        setFeedbackModalOpen(true);
+        setTimeout(() => {
+          setFeedbackModalOpen(false);
+        }, 1000);
       } else {
-        alert("Erro desconhecido no login.");
+        setFeedbackType("error");
+        setFeedbackMessage("Erro ao cadastrar usuário");
+        setFeedbackModalOpen(true);
+        setTimeout(() => {
+          setFeedbackModalOpen(false);
+        }, 1000);
       }
     }
   }
@@ -43,7 +69,7 @@ export default function SignIn() {
       <form
         onSubmit={handleSubmit(handleSignIn)}
         autoComplete="on"
-        className="w-full max-w-sm"
+        className="w-full max-w-sm relative"
       >
         {/* Campo do e-mail */}
         <Input
@@ -51,25 +77,44 @@ export default function SignIn() {
           type="email"
           id="email"
           autoComplete="email"
-          register={register("email", { required: true })}
+          register={register("email")}
           error={errors.email?.message}
         />
 
         {/* Campo de senha */}
-        <Input
-          label="Senha:"
-          type="password"
-          id="password"
-          autoComplete="new-password"
-          register={register("password", { required: true })}
-          error={errors.password?.message}
-        />
+        <div className="m-5">
+          <Input
+            label="Senha:"
+            type="password"
+            id="password"
+            autoComplete="new-password"
+            register={register("password")}
+            error={errors.password?.message}
+          />
+        </div>
 
-        <div className="mt-5 mb-5">
+        <div className="m-5">
           <Button type="submit" styleType="submit">
             Login
           </Button>
         </div>
+
+        {/* Modal de feedback */}
+        <Modal isOpen={feedbackModalOpen}>
+          <div className="flex flex-col items-center justify-center text-center w-full h-full p-5 pt-10 pb-10">
+            <div className="flex items-center justify-center gap-2">
+              <img
+                src={feedbackType === "success" ? iconSuccess : iconUncheck}
+                alt={
+                  feedbackType === "success"
+                    ? "Ícone de Sucesso"
+                    : "Ícone de Erro"
+                }
+              />
+              <p className="text-base font-medium">{feedbackMessage}</p>
+            </div>
+          </div>
+        </Modal>
       </form>
     </>
   );
