@@ -41,8 +41,8 @@ export default function SignUp({ onSuccess }: SignUpProps) {
       setFeedbackType("success");
       setFeedbackMessage("Usuário cadastrado com sucesso!");
       setFeedbackModalOpen(true);
-      reset();
       setTimeout(() => {
+        reset();
         setFeedbackModalOpen(false);
         onSuccess();
       }, 1000);

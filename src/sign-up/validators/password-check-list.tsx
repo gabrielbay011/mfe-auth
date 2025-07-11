@@ -16,7 +16,8 @@ export default function PasswordChecklist({
 
   const hasError = (msg: string) => errorMessages.includes(msg);
 
-  const passwordsMatch = password === confirmPassword;
+  const passwordsMatch =
+    confirmPassword === "" ? false : password === confirmPassword;
 
   return (
     <div className="mt-2 ml-5 md:ml-0 p-1">
