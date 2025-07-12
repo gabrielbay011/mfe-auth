@@ -82,7 +82,7 @@ export default function SignIn() {
         />
 
         {/* Campo de senha */}
-        <div className="m-5">
+        <div className="m-4">
           <Input
             label="Senha:"
             type="password"

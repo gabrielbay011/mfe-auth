@@ -20,11 +20,9 @@ export default function PasswordChecklist({
     confirmPassword === "" ? false : password === confirmPassword;
 
   return (
-    <div className="mt-2 ml-5 md:ml-0 p-1">
-      <p className="font-bold text-[14px]">
-        A nova senha deve conter pelo menos:
-      </p>
-      <ul className="text-[14px]">
+    <div className="mt-2 ml-5 md:ml-0  text-[12px]">
+      <p className="font-bold">A nova senha deve conter pelo menos:</p>
+      <ul>
         <li className="flex">
           <img
             src={

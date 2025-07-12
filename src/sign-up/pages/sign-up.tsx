@@ -111,7 +111,7 @@ export default function SignUp({ onSuccess }: SignUpProps) {
           error={errors.email?.message}
         />
 
-        <div className="flex flex-col md:flex-row gap-5 m-5 md:ml-5 md:mr-5">
+        <div className="flex flex-col md:flex-row gap-5 m-4 md:ml-4 md:mr-4">
           {/* Campo da senha */}
           <Input
             label="Senha:"

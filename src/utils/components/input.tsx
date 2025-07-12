@@ -16,8 +16,10 @@ export default function Input({
   const inputType = isPassword ? (showPassword ? "text" : "password") : type;
 
   return (
-    <div className={type != "password" ? "m-5" : ""}>
-      <label htmlFor={id}>{label}</label>
+    <div className={type != "password" ? "m-4" : ""}>
+      <label htmlFor={id} className="text-sm">
+        {label}
+      </label>
       <br />
       <div className="relative">
         <input
