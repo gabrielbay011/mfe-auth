@@ -1,26 +1,43 @@
-import { emailAlreadyExists } from "../validators/email-already-exists";
-import SHA512 from "crypto-js/sha512";
 import { SignUpFormType } from "../types/sign-up-form-type";
-import { UserToSend } from "../types/user-to-send";
 import normalizeEmail from "../../utils/validators/normalize-email";
+import { nhost } from "../../lib/nhost";
+import { apolloPublicClient } from "../../lib/apollo-client";
+import { INSERT_USER_PROFILE } from "../../graphql/mutation/insert-user-profile";
 
 //Função para realizar o cadastro do usuário
-export function signUpUser(data: SignUpFormType): UserToSend {
+export async function signUpUser(data: SignUpFormType) {
   const normalizedEmail = normalizeEmail(data.email);
-  const hashedPassword = SHA512(data.password).toString();
 
-  if (emailAlreadyExists(normalizedEmail)) {
-    throw new Error("Email já cadastrado");
+  // if (emailAlreadyExists(normalizedEmail)) {
+  //   throw new Error("Email já cadastrado");
+  // }
+
+  await nhost.auth.signOut();
+
+  const { session, error } = await nhost.auth.signUp({
+    email: normalizedEmail,
+    password: data.password,
+  });
+
+  if (error || !session) {
+    throw error ?? new Error("Erro ao cadastrar usuário");
   }
 
-  //Encapsula as informações do usuário
-  const userToSend: UserToSend = {
-    name: data.name,
-    lastName: data.lastName,
-    profit: data.profit,
-    email: normalizedEmail,
-    password: hashedPassword,
-  };
+  //Busca o usuário autenticado após o signUp
+  const user = await nhost.auth.getUser();
 
-  return userToSend;
+  if (!user) {
+    throw new Error("Usuário não encontrado após cadastro");
+  }
+
+  await apolloPublicClient.mutate({
+    mutation: INSERT_USER_PROFILE,
+    variables: {
+      id: user.id,
+      name: data.name,
+      last_name: data.lastName,
+    },
+  });
+
+  return session;
 }

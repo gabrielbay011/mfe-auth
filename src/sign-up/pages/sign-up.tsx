@@ -35,9 +35,9 @@ export default function SignUp({ onSuccess }: SignUpProps) {
   );
 
   //Função executada no envio do formulário e retorna sucesso ou erro no cadastro
-  function handleSignUp(data: SignUpFormType) {
+  async function handleSignUp(data: SignUpFormType) {
     try {
-      signUpUser(data);
+      await signUpUser(data);
       setFeedbackType("success");
       setFeedbackMessage("Usuário cadastrado com sucesso!");
       setFeedbackModalOpen(true);
@@ -53,13 +53,13 @@ export default function SignUp({ onSuccess }: SignUpProps) {
         setFeedbackModalOpen(true);
         setTimeout(() => {
           setFeedbackModalOpen(false);
-        }, 1000);
+        }, 10000);
       } else {
         setFeedbackMessage("Erro ao cadastrar usuário");
         setFeedbackModalOpen(true);
         setTimeout(() => {
           setFeedbackModalOpen(false);
-        }, 1000);
+        }, 10000);
       }
     }
   }
