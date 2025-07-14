@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { SignInFormType } from "../types/sign-in-form-type";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signInFormSchema } from "../schemas/sign-in-form-schema";
-import { signInWithMock } from "../services/sign-in-user";
+import { signInUser } from "../services/sign-in-user";
 import Button from "../../utils/components/button";
 import Input from "../../utils/components/input";
 import { useState } from "react";
@@ -32,17 +32,18 @@ export default function SignIn() {
   //Função executada no envio do formulário e retorna sucesso ou erro no login
   function handleSignIn(data: SignInFormType) {
     try {
-      const response = signInWithMock(data.email, data.password);
+      const response = signInUser(data.email, data.password);
 
       if (response) {
         setFeedbackType("success");
-        setFeedbackMessage("Usuário cadastrado com sucesso!");
+        setFeedbackMessage("Login efetuado com sucesso!");
         setFeedbackModalOpen(true);
       }
 
       reset();
       setTimeout(() => {
         setFeedbackModalOpen(false);
+        window.location.pathname = "/buildings";
       }, 1000);
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -54,7 +55,7 @@ export default function SignIn() {
         }, 1000);
       } else {
         setFeedbackType("error");
-        setFeedbackMessage("Erro ao cadastrar usuário");
+        setFeedbackMessage("Erro ao efetuar o login");
         setFeedbackModalOpen(true);
         setTimeout(() => {
           setFeedbackModalOpen(false);
