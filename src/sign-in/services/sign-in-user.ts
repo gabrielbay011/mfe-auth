@@ -17,7 +17,7 @@ export async function signInUser(email: string, password: string) {
   });
 
   if (error || !session) {
-    throw error ?? new Error("Erro ao efetuar o login");
+    throw new Error(error.message);
   }
 
   return session;

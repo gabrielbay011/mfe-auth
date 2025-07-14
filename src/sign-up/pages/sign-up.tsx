@@ -53,13 +53,13 @@ export default function SignUp({ onSuccess }: SignUpProps) {
         setFeedbackModalOpen(true);
         setTimeout(() => {
           setFeedbackModalOpen(false);
-        }, 10000);
+        }, 1000);
       } else {
         setFeedbackMessage("Erro ao cadastrar usuário");
         setFeedbackModalOpen(true);
         setTimeout(() => {
           setFeedbackModalOpen(false);
-        }, 10000);
+        }, 1000);
       }
     }
   }

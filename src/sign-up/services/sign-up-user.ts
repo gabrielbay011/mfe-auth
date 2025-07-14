@@ -18,7 +18,7 @@ export async function signUpUser(data: SignUpFormType) {
   await nhost.auth.signOut();
 
   if (error || !session) {
-    throw error ?? new Error("Erro ao cadastrar usuário");
+    throw new Error(error.message);
   }
 
   await apolloPublicClient.mutate({

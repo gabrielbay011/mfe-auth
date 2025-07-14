@@ -30,9 +30,9 @@ export default function SignIn() {
   );
 
   //Função executada no envio do formulário e retorna sucesso ou erro no login
-  function handleSignIn(data: SignInFormType) {
+  async function handleSignIn(data: SignInFormType) {
     try {
-      const response = signInUser(data.email, data.password);
+      const response = await signInUser(data.email, data.password);
 
       if (response) {
         setFeedbackType("success");
@@ -46,15 +46,14 @@ export default function SignIn() {
         window.location.pathname = "/buildings";
       }, 1000);
     } catch (err: unknown) {
+      setFeedbackType("error");
       if (err instanceof Error) {
-        setFeedbackType("error");
         setFeedbackMessage(err.message);
         setFeedbackModalOpen(true);
         setTimeout(() => {
           setFeedbackModalOpen(false);
         }, 1000);
       } else {
-        setFeedbackType("error");
         setFeedbackMessage("Erro ao efetuar o login");
         setFeedbackModalOpen(true);
         setTimeout(() => {
