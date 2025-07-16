@@ -2,7 +2,7 @@
 
 ## Descrição
 
-Este micro front-end é reponsável pela autenticação de usuário. Ele faz parte da arquitetura de micro-front-ends da aplicação principal via `root-config` utilizando o `single-spa`.
+Este microfrontend é reponsável pela autenticação de usuário. Ele faz parte da arquitetura de microfrontend da aplicação principal via `root-config` utilizando o `single-spa`.
 
 ## Como rodar localmente
 
@@ -30,5 +30,5 @@ http://localhost:9000/auth
 
 ## Integração com o root-config
 
-- Nome do micro front-end registrado: `@mfe/auth`
+- Nome do microfrontend registrado: `@mfe/auth`
 - Caminho da rota configurada: `/auth`
